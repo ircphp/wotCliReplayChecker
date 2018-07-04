@@ -30,7 +30,7 @@ class wotReaplayReader {
 	}
 
 	public function __destruct() {
-		fclose($this->fd);
+		if ($this->fd) fclose($this->fd);
 	}
 
 	/**
@@ -66,6 +66,7 @@ class wotReaplayReader {
 	 * @return number
 	 */
 	private function get_len() {
+		if (!$this->fd) return 0;
 		$len_1 = fread($this->fd, 1);
 		$len_2 = fread($this->fd, 1);
 		$len_3 = fread($this->fd, 1);
